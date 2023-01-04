@@ -1,0 +1,56 @@
+# DOCKER VERSION
+version: '3'
+
+# SERVICES CONFIG
+services:
+  
+  # NGINX CONFIG
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    ports: 
+      -443:443
+    volumes:
+      - # add volume  
+    restart: always
+    networks:
+      - main_network
+
+  # WORDPRESS CONFIG
+  wordpress:
+    container_name: wordpress
+    depends_on:
+      - maria_db
+    build: ./requirements/wordpress
+    ports:
+      -9000:9000
+    volumes:
+      - # add volume
+      - # add 2nd volume
+    restart:
+      - always
+    env_file:
+      - .env
+    networks:
+      - main_network
+
+  # DATABASE CONFIG
+  maria_db:
+    container_name: maria_db
+    build: ./requirements/maria_db
+    ports:
+      -3306:3306
+    volumes:
+      - # add volume
+    networks:
+     - main_network
+    restart: always
+    env_file:
+      - .env
+
+# VOLUMES CONFIG
+volumes:
+    
+# NETWORK CONFIG
+networks:
+  main_network:
