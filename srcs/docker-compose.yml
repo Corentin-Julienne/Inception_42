@@ -11,7 +11,9 @@ services:
     ports: 
       -443:443
     volumes:
-      - # add volume  
+      - # add volume
+    depends_on: 
+      - wordpress  
     restart: always
     networks:
       - main_network
